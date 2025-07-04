@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Readiness Exam Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #e9fdf0;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 0 20px rgba(0, 128, 0, 0.1);
+      border-left: 5px solid #00aa55;
+      border-radius: 0 0 12px 12px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #007a3d;
+      margin-top: 0;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+      color: #0f4d32;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid #a7dfc0;
+      border-radius: 10px;
+      font-size: 15px;
+      background-color: #f8fff9;
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.5;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .question {
+      margin-top: 15px;
+      background-color: #f3fff6;
+      border-radius: 12px;
+      border: 1px solid #c4e9d4;
+      padding: 12px 15px 10px;
+      display: none;
+      animation: slideIn 0.5s ease;
+    }
+
+    .reveal-btn {
+      margin-top: 12px;
+      background-color: #00aa55;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+    }
+
+    .reveal-btn:hover {
+      background-color: #008844;
+    }
+
+    .char-count {
+      text-align: right;
+      font-size: 12px;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    .timer {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      background: #d9fce1;
+      color: #004d26;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 2px dashed #00aa55;
+      border-radius: 10px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      margin-top: 30px;
+      background-color: #007a3d;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background-color: #005c2e;
+    }
+
+    .success-message {
+      display: none;
+      padding: 20px;
+      background: #e2fce6;
+      border: 2px solid #00aa55;
+      color: #0f3d1f;
+      border-radius: 10px;
+      margin-top: 30px;
+    }
+
+    #loading {
+      display: none;
+      text-align: center;
+      font-size: 16px;
+      color: #004d26;
+      margin-top: 20px;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body oncontextmenu="return false">
+  <div class="container">
+    <h1>Readiness Exam Portal</h1>
+
+    <div class="timer" id="timerDisplay">
+      ⏱️ Time Left: <span id="countdown">60:00</span>
+    </div>
+
+    <form id="examForm">
+      <label>Full Name</label>
+      <input type="text" id="name" required>
+
+      <label>Mobile Number</label>
+      <input type="tel" id="phone" required pattern="[0-9]{10}" placeholder="10-digit number">
+
+      <label>Email ID</label>
+      <input type="email" id="email" required>
+
+      <!-- Question 1 -->
+      <div class="q-block">
+        <button type="button" class="reveal-btn" onclick="reveal(this)">🧾 Reveal Question 1</button>
+        <div class="question">
+          <label>1. Define the following with example
+(i) String
+(ii) Language
+(iii) Alphabet
+(iv) DFSM
+(v)Concatenation
+(vi)Symbol</label>
+          <textarea id="q1" oninput="updateCount(this)"></textarea>
+          <div class="char-count">Characters: <span>0</span></div>
+        </div>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="q-block">
+        <button type="button" class="reveal-btn" onclick="reveal(this)">🧾 Reveal Question 2</button>
+        <div class="question">
+          <label>2. State and prove pumping theorem for Regular languages</label>
+          <textarea id="q2" oninput="updateCount(this)"></textarea>
+          <div class="char-count">Characters: <span>0</span></div>
+        </div>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="q-block">
+        <button type="button" class="reveal-btn" onclick="reveal(this)">🧾 Reveal Question 3</button>
+        <div class="question">
+          <label>3. Derivation and parse trees of CFG</label>
+          <textarea id="q3" oninput="updateCount(this)"></textarea>
+          <div class="char-count">Characters: <span>0</span></div>
+        </div>
+      </div>
+
+      <!-- Question 4 -->
+      <div class="q-block">
+        <button type="button" class="reveal-btn" onclick="reveal(this)">🧾 Reveal Question 4</button>
+        <div class="question">
+          <label>4. Explain Language Acceptability and Design of Turing Machines.</label>
+          <textarea id="q4" oninput="updateCount(this)"></textarea>
+          <div class="char-count">Characters: <span>0</span></div>
+        </div>
+      </div>
+
+      <!-- Question 5 -->
+      <div class="q-block">
+        <button type="button" class="reveal-btn" onclick="reveal(this)">🧾 Reveal Question 5</button>
+        <div class="question">
+          <label>5. Explain Language Acceptability and Design of Turing Machines.</label>
+          <textarea id="q5" oninput="updateCount(this)"></textarea>
+          <div class="char-count">Characters: <span>0</span></div>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit Answers</button>
+      <div id="loading">⏳ Submitting, please wait...</div>
+    </form>
+
+    <div class="success-message" id="successMsg">
+      ✅ Your answers have been recorded successfully!<br>Thank you for attending the VTU Readiness Exam. Your evaluation will be shared shortly.
+    </div>
+  </div>
+
+  <script>
+    let timerInterval;
+    let totalTime = 60 * 60;
+
+    function updateTimerDisplay() {
+      const countdownEl = document.getElementById("countdown");
+      const minutes = Math.floor(totalTime / 60);
+      const seconds = totalTime % 60;
+      countdownEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        totalTime--;
+        updateTimerDisplay();
+        if (totalTime <= 0) {
+          clearInterval(timerInterval);
+          autoSubmitExam();
+        }
+      }, 1000);
+    }
+
+    function reveal(button) {
+      const questionDiv = button.nextElementSibling;
+      questionDiv.style.display = "block";
+      button.style.display = "none";
+    }
+
+    function updateCount(textarea) {
+      const count = textarea.value.length;
+      textarea.nextElementSibling.querySelector("span").textContent = count;
+    }
+
+    function autoSubmitExam() {
+      document.getElementById("examForm").style.display = "none";
+      document.getElementById("successMsg").style.display = "block";
+      const now = new Date();
+      document.getElementById("timerDisplay").innerHTML = ` Submitted at: <strong>${now.toLocaleTimeString()}</strong>`;
+    }
+
+    document.getElementById("examForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      clearInterval(timerInterval);
+      document.getElementById("loading").style.display = "block";
+
+      const data = new URLSearchParams();
+      data.append("name", document.getElementById("name").value);
+      data.append("phone", document.getElementById("phone").value);
+      data.append("email", document.getElementById("email").value);
+      data.append("q1", document.getElementById("q1").value);
+      data.append("q2", document.getElementById("q2").value);
+      data.append("q3", document.getElementById("q3").value);
+      data.append("q4", document.getElementById("q4").value);
+      data.append("q5", document.getElementById("q5").value);
+
+      fetch("https://script.google.com/macros/s/AKfycbxo_tpGKw2rvm7LigjDppl6oO2yd9_cB5-u3FqXEfm7KflFRURwPz3hWp_GuuJoiv9wJg/exec", {
+        method: "POST",
+        body: data.toString(),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      })
+      .then(res => res.text())
+      .then(result => {
+        document.getElementById("loading").style.display = "none";
+        autoSubmitExam();
+      })
+      .catch(error => {
+        document.getElementById("loading").style.display = "none";
+        alert("Submission failed. Please try again.");
+        console.error(error);
+      });
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if ((e.ctrlKey && ["c", "u", "s"].includes(e.key)) || e.key === "PrintScreen") {
+        e.preventDefault();
+        alert("Copying or screenshot is disabled.");
+      }
+    });
+
+    window.addEventListener("keyup", function (e) {
+      if (e.key === "PrintScreen") {
+        alert("Screenshot is not allowed.");
+        document.body.innerHTML = "";
+      }
+    });
+
+    updateTimerDisplay();
+    startTimer();
+  </script>
+</body>
+</html>
